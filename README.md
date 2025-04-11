@@ -1,1 +1,2 @@
-# sistema_rak
+# Proyecto de sistema rak para secundaria
+
