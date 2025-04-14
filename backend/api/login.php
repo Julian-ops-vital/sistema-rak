@@ -7,12 +7,12 @@ session_start();
 require_once '../conexion/conexion.php';
 
 // Se obtienen los datos del formulario
-$email = $post['email'];
-$password = $post['password'];
+$email = $_POST['email'];
+$password = $_POST['password'];
 
 //Prepara la consulta para evitar SQL injection
 $stmt = $conexion->prepare("SELECT * FROM usuario WHERE email_us = ? LIMIT 1");
-$stmt->bind_param("s" $email);
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 
