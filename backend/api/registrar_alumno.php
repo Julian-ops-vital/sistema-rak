@@ -3,7 +3,7 @@
 require_once '../conexion/conexion.php';
 
 //Verifica que el formulario fue enviado por el metodo POST
-if($_SERVER["REQUEST_METHOD"] == "POST");{
+if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = $_POST['nombre'];
     $lastName = $_POST['apellido'];
     $email = $_POST['email'];
