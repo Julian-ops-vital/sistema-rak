@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: secundaria93_db
+-- Host: 127.0.0.1    Database: sistema_rak
 -- ------------------------------------------------------
 -- Server version	9.2.0
 
@@ -226,6 +226,11 @@ CREATE TABLE `rol` (
   PRIMARY KEY (`numero_rol`),
   UNIQUE KEY `numero_rol_UNIQUE` (`numero_rol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO rol (numero_rol, nombre_rol, Descripción) VALUES
+(1, 'admin', 'Este usuario es admnistrador'),
+(2, 'maestro', 'Este usuario es maestro'),
+(3, 'alumno', 'Este usuario es almuno');
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +290,6 @@ CREATE TABLE `usuario` (
   `apellido_us` varchar(100) NOT NULL,
   PRIMARY KEY (`id_us`,`numero_rol`),
   UNIQUE KEY `id_us_UNIQUE` (`id_us`),
-  UNIQUE KEY `numero_rol_UNIQUE` (`numero_rol`),
   CONSTRAINT `FK_rol` FOREIGN KEY (`numero_rol`) REFERENCES `rol` (`numero_rol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
