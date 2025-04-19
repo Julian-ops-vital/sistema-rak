@@ -1,6 +1,7 @@
 {
 	"name" : "sistema-rak/sistema-rak",
 	"require" : {
-		"slim/slim" : "4.*"
+		"slim/slim" : "4.*",
+		"slim/psr7": "^1.7"
 	}
 }
