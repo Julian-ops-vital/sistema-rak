@@ -309,3 +309,20 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-04-10  1:41:46
+-- Data:
+--Tabla Rol
+INSERT INTO `rol`(`numero_rol`, `nombre_rol`, `Descripción`) VALUES ('1','Usuario','Rol Usuario');
+INSERT INTO `rol`(`numero_rol`, `nombre_rol`, `Descripción`) VALUES ('2','Administrador','Rol Administrador');
+INSERT INTO `rol`(`numero_rol`, `nombre_rol`, `Descripción`) VALUES ('3','Estudiante','Rol Estudiante');
+INSERT INTO `rol`(`numero_rol`, `nombre_rol`, `Descripción`) VALUES ('4','Maestro','Rol Maestro');
+
+--Tabla Usuario
+INSERT INTO `usuario`(`numero_rol`, `email_us`, `contraseña_us`, `nombre_us`, `apellido_us`) VALUES ('1','lmov@hotmail.com','LMOVMMX4','Lorenzo Martin','Olmos Vega');
+INSERT INTO `usuario`(`numero_rol`, `email_us`, `contraseña_us`, `nombre_us`, `apellido_us`) VALUES ('2','jvital@hotmail.com','12345678','Julian','Vital');
+
+--Tabla Estudiante
+INSERT INTO `estudiante`(`id_us`, `nombre_est`, `grado_est`, `grupo_est`) VALUES ('1','Martin Olmos','2','C');
+INSERT INTO `estudiante`(`id_us`, `nombre_est`, `grado_est`, `grupo_est`) VALUES ('2','Julian Vital','1','A');
+INSERT INTO `estudiante`(`id_us`, `nombre_est`, `grado_est`, `grupo_est`) VALUES ('1','Ruben Mercado','1','A');
+INSERT INTO `estudiante`(`id_us`, `nombre_est`, `grado_est`, `grupo_est`) VALUES ('1','Manuel Lopez','3','B');
+INSERT INTO `estudiante`(`id_us`, `nombre_est`, `grado_est`, `grupo_est`) VALUES ('2','Jose Valadez','2','A');
