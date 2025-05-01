@@ -7,7 +7,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = $_POST['nombre'];
     $lastName = $_POST['apellido'];
     $email = $_POST['email'];
-    $password = $_POST['email'];
+    $password = $_POST['password'];
 
     //Verifica si el usuario existe por el correo
     $checkQuery = "SELECT * FROM usuario WHERE email_us = ?";
@@ -17,7 +17,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $resultado = $stmt->get_result();
 
     if($resultado->num_rows > 0) {
-        echo "El usuario ya esta registrado.";
+        echo "El correo ya esta registrado.";
+        exit;
     }
 
     //Hashea la contraseña

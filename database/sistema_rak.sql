@@ -285,7 +285,7 @@ CREATE TABLE `usuario` (
   `id_us` int NOT NULL AUTO_INCREMENT,
   `numero_rol` int NOT NULL,
   `email_us` varchar(45) NOT NULL,
-  `contraseña_us` varchar(45) NOT NULL,
+  `contraseña_us` varchar(255) NOT NULL,
   `nombre_us` varchar(100) NOT NULL,
   `apellido_us` varchar(100) NOT NULL,
   PRIMARY KEY (`id_us`,`numero_rol`),
