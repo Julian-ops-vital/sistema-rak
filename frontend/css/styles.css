@@ -1,15 +1,13 @@
-
 body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('esc.jpeg') no-repeat center center fixed;
-    background-size: cover;
+    background-color: #1d0000;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #2c3e50;
+    color: #000000;
     position: relative;
 }
 
@@ -24,11 +22,10 @@ body::before {
     z-index: -1;
 }
 
-
-#login, 
-#registroAlumno, 
+#login,
+#registroAlumno,
 #registroMaestro {
-    background-color: rgba(255, 255, 255, 0.96);
+    background-color: #fffafa;
     width: 90%;
     max-width: 420px;
     padding: 35px;
@@ -36,11 +33,14 @@ body::before {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     text-align: center;
     margin: 20px auto;
+    color: #000000;
 }
 
-
-#login h2 {
-    color: #3498db;
+/* Encabezados */
+#login h2,
+#registroAlumno h2,
+#registroMaestro h2 {
+    color: #5d090e;
     margin-bottom: 25px;
     font-size: 26px;
     font-weight: 700;
@@ -48,7 +48,9 @@ body::before {
     padding-bottom: 10px;
 }
 
-#login h2::after {
+#login h2::after,
+#registroAlumno h2::after,
+#registroMaestro h2::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -56,10 +58,13 @@ body::before {
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: #3498db;
+    background: #5d090e;
 }
 
-#login form {
+/* Formularios */
+#login form,
+#registroAlumno form,
+#registroMaestro form {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -70,112 +75,11 @@ body::before {
     text-align: left;
     font-weight: 500;
     margin-bottom: 6px;
-    color: #2c3e50;
+    color: #000000;
     font-size: 15px;
 }
 
-#login input {
-    padding: 14px 16px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 15px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: all 0.3s;
-}
-
-#login input:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-}
-
-.user-type {
-    margin: 15px 0;
-    text-align: left;
-}
-
-.user-type-options {
-    display: flex;
-    gap: 15px;
-    margin-top: 8px;
-}
-
-.user-type-options label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 400;
-    cursor: pointer;
-}
-
-#login button {
-    background-color: #3498db;
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: all 0.3s;
-    width: 100%;
-}
-
-#login button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-.login-footer {
-    margin-top: 25px;
-    color: #7f8c8d;
-    font-size: 14px;
-}
-
-.login-footer a {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.login-footer a:hover {
-    color: #2980b9;
-    text-decoration: underline;
-}
-
-
-#registroAlumno h2,
-#registroMaestro h2 {
-    color: #27ae60;
-    margin-bottom: 25px;
-    font-size: 26px;
-    font-weight: 700;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-#registroAlumno h2::after,
-#registroMaestro h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: #27ae60;
-}
-
-#registroAlumno form,
-#registroMaestro form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
+#login input,
 #registroAlumno input,
 #registroMaestro input {
     padding: 14px 16px;
@@ -185,19 +89,24 @@ body::before {
     width: 100%;
     box-sizing: border-box;
     transition: all 0.3s;
+    background-color: #fff;
+    color: #000000;
 }
 
+#login input:focus,
 #registroAlumno input:focus,
 #registroMaestro input:focus {
-    border-color: #27ae60;
+    border-color: #5d090e;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+    box-shadow: 0 0 0 3px rgba(93, 9, 14, 0.2);
 }
 
+/* Botones */
+#login button,
 #registroAlumno button,
 #registroMaestro button {
-    background-color: #27ae60;
-    color: white;
+    background-color: #5d090e;
+    color: #fffafa;
     padding: 14px;
     border: none;
     border-radius: 8px;
@@ -209,31 +118,36 @@ body::before {
     width: 100%;
 }
 
+#login button:hover,
 #registroAlumno button:hover,
 #registroMaestro button:hover {
-    background-color: #219653;
+    background-color: #1d0000;
     transform: translateY(-2px);
 }
 
+/* Footer */
+.login-footer,
 .registro-footer {
-    margin-top: 20px;
-    color: #7f8c8d;
+    margin-top: 25px;
+    color: #000000;
     font-size: 14px;
 }
 
+.login-footer a,
 .registro-footer a {
-    color: #3498db;
+    color: #5d090e;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s;
 }
 
+.login-footer a:hover,
 .registro-footer a:hover {
-    color: #2980b9;
+    color: #1d0000;
     text-decoration: underline;
 }
 
-
+/* Logo */
 .logo-container {
     position: absolute;
     bottom: 30px;
@@ -254,7 +168,7 @@ body::before {
         width: 85%;
         padding: 25px;
     }
-    
+
     .logo-container img {
         width: 100px;
     }
