@@ -1,6 +1,6 @@
 <?php
 
-namespace models\Interfaces;
+namespace Models\Interfaces;
 
 interface IEntity
 {

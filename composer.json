@@ -2,6 +2,16 @@
 	"name" : "sistema-rak/sistema-rak",
 	"require" : {
 		"slim/slim" : "4.*",
-		"slim/psr7": "^1.7"
+		"slim/psr7" : "^1.7"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Config\\" : "backend/config/",
+			"Controllers\\" : "backend/componentes/controllers/",
+			"Models\\" : [
+				"backend/componentes/data/",
+				"backend/componentes/models/"
+			]
+		}
 	}
 }

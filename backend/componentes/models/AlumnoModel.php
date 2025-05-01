@@ -1,11 +1,10 @@
 <?php
+namespace Models;
 
-namespace models;
+use Models\Interfaces\Model;
+use Models\entities\Alumno;
 
-use models\Interfaces\IModel;
-use models\entities\Alumno;
-
-class AlumnoModel implements IModel
+class AlumnoModel extends Model
 {
 	public function __construct()
 	{
@@ -17,9 +16,7 @@ class AlumnoModel implements IModel
 	public function FetchResults($Results)
 	{
 		if($Results)
-		{
-			$this->NumRows = $Results->num_rows;
-			
+		{	
 			foreach ($Results as $Result)
 			{
 				$Alumno = new Alumno();

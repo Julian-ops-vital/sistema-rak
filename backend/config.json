@@ -1,8 +1,9 @@
 {
 	"DbConnectionInfo" : {
-		"server" : "localhost",
-		"port" : "3307",
+		"server" : "127.0.0.1",
+		"port" : "3306",
 		"username" : "root",
+		"password": "",
 		"database" : "sistema-rak"
 	}
 }

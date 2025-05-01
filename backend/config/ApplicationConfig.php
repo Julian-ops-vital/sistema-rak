@@ -1,19 +1,18 @@
 <?php
-namespace config;
-
-use 'Singleton.php';
+namespace Config;
 
 class ApplicationConfig extends Singleton
 {
-    protected function __construct()
+    protected function __construct($readConfigFile = true)
     {
-        $configFile = file_get_contents('./config.json');
-        $json = json_decode($configFile);
-        
-        if ($json)
-        {
-            $this->set(json_decode($json, true));
-        }
+    	if ($readConfigFile) {
+    		$configFile = file_get_contents("..\config.json");
+    		//$json =
+    		if ($configFile)
+    		{
+    			$this->set(json_decode($configFile, true));
+    		}
+    	}
     }
     
     public function set($data) 
@@ -22,7 +21,7 @@ class ApplicationConfig extends Singleton
         {
             if (is_array($value)) 
             {
-                $sub = new ApplicationConfig();
+                $sub = new ApplicationConfig(false);
                 $sub->set($value);
                 $value = $sub;
             }

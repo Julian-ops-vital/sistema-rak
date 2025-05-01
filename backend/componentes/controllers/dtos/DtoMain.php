@@ -1,5 +1,5 @@
 <?php
-namespace controllers\dtos;
+namespace Controllers\dtos;
 
 abstract class DtoMain
 {
