@@ -1,33 +1,24 @@
 <?php
-
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Controllers\dtos\AlumnoDtoInsert;
 use Controllers\dtos\AlumnoDtoUpdate;
 
-require __DIR__ . '\..\..\vendor\autoload.php';
-
-$app = AppFactory::create();
-
-$app->setBasePath("/sistema-rak/backend/api");
-$app->addBodyParsingMiddleware();
-$app->addRoutingMiddleware();
-
-$app->get('/alumnos/{id}', function (Request $request, Response $response, $args) 
+$app->get('/alumnos/{id}', function (Request $request, Response $response, $args)
 {
-	try 
+	try
 	{
 		$alumnosController = new Controllers\AlumnosController();
 		$id = $args['id'];
 		
 		$response->getBody()->write($alumnosController->getAlumno($id)->ToJson());
-	} 
-	catch (Exception $e) 
+	}
+	catch (Exception $e)
 	{
 		Throw new Exception("Error encontrado: $e->getMessage()");
 	}
-    
+	
 	return $response->withStatus(200)->withHeader('Content-type', 'application/json');
 });
 
@@ -70,7 +61,7 @@ $app->put('/alumnos/{id}', function (Request $request, Response $response, $args
 		$id = $args['id'];
 		
 		$alumnosController = new Controllers\AlumnosController();
-		 
+		
 		$response->getBody()->write(json_encode($alumnosController->UpdateAlumno(new AlumnoDtoUpdate($request->getParsedBody()['Alumno'], $id))));
 	}
 	catch (Exception $e)
@@ -93,9 +84,9 @@ $app->delete('/alumnos/{id}', function (Request $request, Response $response, $a
 		{
 			$response->withStatus(200);
 		}
-		else 
+		else
 		{
-			$response->withStatus(404, 'alumno no encontrado');	
+			$response->withStatus(404, 'alumno no encontrado');
 		}
 	}
 	catch (Exception $e)
@@ -105,6 +96,3 @@ $app->delete('/alumnos/{id}', function (Request $request, Response $response, $a
 	
 	return $response;
 });
-    
-// Run app
-$app->run();

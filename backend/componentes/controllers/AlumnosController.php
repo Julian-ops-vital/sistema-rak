@@ -3,11 +3,11 @@
 namespace Controllers;
 
 use Models\AlumnoModel;
-use Controllers\dtos\AlumnoDto;
-use Controllers\dtos\AlumnoDtoInsert;
+use Controllers\dtos\Alumnos\AlumnoDto;
+use Controllers\dtos\Alumnos\AlumnoDtoInsert;
 use Models\DB;
 use Exception;
-use Controllers\dtos\AlumnoDtoUpdate;
+use Controllers\dtos\Alumnos\AlumnoDtoUpdate;
 
 class AlumnosController
 {

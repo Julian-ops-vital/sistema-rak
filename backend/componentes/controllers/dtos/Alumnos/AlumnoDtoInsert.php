@@ -1,6 +1,8 @@
 <?php
 
-namespace Controllers\dtos;
+namespace Controllers\dtos\Alumnos;
+
+use Controllers\dtos\DtoMain;
 
 class AlumnoDtoInsert extends DtoMain
 {

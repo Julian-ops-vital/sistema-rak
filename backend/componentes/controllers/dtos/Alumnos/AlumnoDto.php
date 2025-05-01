@@ -1,8 +1,8 @@
 <?php
-namespace Controllers\dtos;
+namespace Controllers\dtos\Alumnos;
 
+use Controllers\dtos\DtoMain;
 use Models\entities\Alumno;
-
 
 class AlumnoDto extends DtoMain
 {
