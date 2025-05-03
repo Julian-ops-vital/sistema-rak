@@ -154,12 +154,18 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    width: 1.5em;
 }
 
 .logo-container img {
-    width: 120px;
+    width: 1.5em;
     opacity: 0.9;
 }
+
+section img.logo{     
+    width: 120px;
+}
+
 
 @media (max-width: 480px) {
     #login,
