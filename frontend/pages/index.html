@@ -25,49 +25,7 @@
 
             <button type="submit">Ingresar</button>
         </form>
-        <p class="login-footer">
-            ¿No tienes una cuenta?
-            <a href="#" onclick="mostrarSeccion('registroAlumno')">Registrarse como Alumno</a> |
-            <a href="#" onclick="mostrarSeccion('registroMaestro')">Registrarse como Maestro</a>
-        </p>
     </section>
-
-    <!-- REGISTRO ALUMNO -->
-    <section id="registroAlumno" class="hidden">
-        <h2>Registro de Alumno</h2>
-        <form action="../../backend/api/registrar_alumno.php" method="POST">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="text" name="apellido" placeholder="Apellido" required>
-            <input type="email" name="email" placeholder="Correo Electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Registrarse</button>
-        </form>
-        <p class="registro-footer">¿Ya tienes una cuenta? <a href="#" onclick="mostrarSeccion('login')">Inicia sesión</a></p>
-    </section>
-
-    <!-- REGISTRO MAESTRO -->
-    <section id="registroMaestro" class="hidden">
-        <h2>Registro de Maestro</h2>
-        <form action="registrar_maestro.php" method="POST">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="text" name="apellido" placeholder="Apellido" required>
-            <input type="email" name="email" placeholder="Correo Electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Registrarse</button>
-        </form>
-        <p class="registro-footer">¿Ya tienes una cuenta? <a href="#" onclick="mostrarSeccion('login')">Inicia sesión</a></p>
-    </section>
-
-  
-
-    <script>
-        function mostrarSeccion(id) {
-            // Oculta todas las secciones
-            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
-            // Muestra la deseada
-            document.getElementById(id).classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>
 

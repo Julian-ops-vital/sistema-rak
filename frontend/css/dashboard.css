@@ -88,17 +88,22 @@
     margin-top: 60px;
     padding: 20px;
     transition: margin-left 0.3s ease;
+    background-color: #FFFAFA;
   }
 
-  /*Section Materias*/
-      .btn-guinda {
-      background-color: #800020;
-      color: #fff;
-    }
-    .btn-guinda:hover {
-      background-color: #600018;
-      color: #fff;
-    }
+  .btn-guinda {
+    background-color: #800020;
+    color: #fff;
+  }
+  
+  .btn-guinda:hover {
+    background-color: #600018;
+    color: #fff;
+  }
+
+  #calificaciones {
+    font-weight:600;
+  }
   
     .sidebar {
       transform: translateX(-100%);

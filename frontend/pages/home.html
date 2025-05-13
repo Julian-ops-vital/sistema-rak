@@ -29,6 +29,9 @@
       <li><a href="#" class="nav-link" data-section="materias"><img class="icon" src="assets/libros.svg" alt="Libro"> Materias</a></li>
       <li><a href="#" class="nav-link" data-section="alumnos"><img class="icon" src="assets/alumno.svg" alt="Persona"> Alumnos</a></li>
       <li><a href="#" class="nav-link" data-section="actividades"><img class="icon" src="assets/actividades.svg" alt="Documento"> Actividades</a></li>
+      <li><a href="#" class="nav-link" data-section="calificaciones"><img class="icon" src="assets/Calificaciones.svg" alt="calificaciones"> Calificaciones</a></li>
+      <li><a href="#" class="nav-link" data-section="usuarios"><img class="icon" src="assets/usuarios.svg" alt="usuarios"> Usuarios</a></li>
+
     </ul>
     <!-- Botón de logout al fondo -->
     <div class="mb-3 p-3" id="logout-button">
@@ -40,7 +43,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="main-content">
+  <div class="main-content bg-secondary">
     <!--Bienvenida section-->
     <section id="bienvenida" class="seccion">
       <div class="container-fluid">
@@ -72,13 +75,11 @@
     <!--Materias section-->
     <section id="materias" class="seccion" hidden>
       <div class="container-fluid">
-        <!--Lista de materias-->
-        <div class="container-fluid" >
-          <h1 class="mt-3">Gestión de Materias</h1>
+        <div class="container-fluid text-center" >
+          <h1 class="mt-3 mb-4">Gestión de Materias</h1>
           <div class="mb-3 d-flex gap-2">
-            <input type="text" id="nuevoGrupo" class="form-control" placeholder="Nombre de la materia">
-            <button class="btn btn-guinda" onclick="agregarGrupo()">Agregar Materia</button>
-            <button class="btn btn-guinda" onclick="eliminarGrupo()">Descargar lista</button>
+            <input type="text" id="nombreMateria" class="form-control" placeholder="Nombre de la materia">
+            <button class="btn btn-guinda" onclick="">Agregar Materia</button>
           </div>
           <div class="table-responsive table-hover" id="tabla-materias">
             <table class="table">
@@ -87,15 +88,17 @@
                 <th class="text-center ">Eliminar</th>
               </thead>
               <tbody>
+                <!--Funcion para agregar las materias con el api GET materia-->
                 <tr>
                   <td>####</td>
-                  <td class="text-center"><button class="btn btn-guinda" onclick="#"><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
+                  <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
                 </tr>
               </tbody>
             </table>
+            <button class="btn btn-guinda" onclick="">Descargar lista</button>
           </div>
         </div>
-        <!--Gestion de alumnos y calificaciones-->
+        <!--Gestion de alumnos y calificaciones
         <div id="alumnoScreen" class="hidden">
           <h2 class="mb-4">Gestión de Alumnos y Calificaciones</h2>
           <p><strong>Grupo Seleccionado:</strong> <span id="grupoActual"></span></p>
@@ -111,7 +114,6 @@
               </tr>
             </thead>
             <tbody id="tablaAlumnos">
-       
             </tbody>
           </table>
       
@@ -123,19 +125,26 @@
           <button class="btn btn-guinda" onclick="generarReportes()">Generar Reportes</button> 
       
           <button class="btn btn-guinda" onclick="calcularPromedios()">Sacar Promedio</button>
-           <button class="btn btn-guinda" onclick="subirMaterial()">Subir Material</button>
+            <button class="btn btn-guinda" onclick="subirMaterial()">Subir Material</button>
           <button class="btn btn-secondary ms-2" onclick="volverAGrupos()">Volver a Grupos</button>
         </div>
       </div>
+    -->
     </section>
-
     <!--Alumnos section-->
     <section id="alumnos" class="seccion" hidden>
-      <div class="container-fluid">
-        <h1 class="mt-3">Alumnos</h1>
-        <div class="d-flex justify-content-between mb-4">
-          <button class="btn btn-guinda" onclick="#">Lista de alumnos</button>
-          <button class="btn btn-guinda" onclick="#">Agregar Alumno</button>
+      <div class="container-fluid text-center">
+        <h1 class="mt-3 mb-4">Gestion de Alumnos</h1>
+        <div class="mb-3 d-flex gap-2">
+          <input type="text" id="nombreAlumno" class="form-control" placeholder="Nombre de Alumno">
+          <select id="gradoAlumno" class="form-select text-center">
+            <option value="" disabled selected>Selecciona grado</option>
+            <option value="1">1°</option>
+            <option value="2">2°</option>
+            <option value="3">3°</option>
+          </select>
+          <input type="text" id="grupoAlumno" class="form-control" placeholder="Grupo">
+          <button class="btn btn-guinda" onclick="">Agregar Alumno</button>
         </div>
         <div class="table-responsive table-hover" id="tabla-materias">
           <table class="table">
@@ -150,20 +159,20 @@
                 <td class="text-center">####</td>
                 <td class="text-center">####</td>
                 <td class="text-center">####</td>
-                <td class="text-center"><button class="btn btn-guinda" onclick="#"><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
+                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></td>
               </tr>
             </tbody>
           </table>
+          <button class="btn btn-guinda" onclick="">Descargar lista</button>
         </div>
       </div>
     </section>
     <!--Actividades section-->
     <section id="actividades" class="seccion" hidden>
-      <div class="container-fluid">
-        <h1 class="mt-3">Actividades</h1>
+      <div class="container-fluid text-center">
+        <h1 class="mt-3 mb-3">Gestion de Actividades</h1>
         <div class="d-flex justify-content-between mb-4">
-          <button class="btn btn-guinda" onclick="#">Lista de Actividades</button>
-          <button class="btn btn-guinda" onclick="#">Agregar Actividad</button>
+          <button class="btn btn-guinda" onclick="">Agregar Actividad</button>
         </div>
         <div class="table-responsive table-hover" id="tabla-materias">
           <table class="table">
@@ -182,14 +191,80 @@
                 <td class="text-center">####</td>
                 <td class="text-center">####</td>
                 <td class="text-center">####</td>
-                <td class="text-center"><button class="btn btn-guinda" onclick="#"><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
+                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
               </tr>
             </tbody>
           </table>
+          <button class="btn btn-guinda" onclick="">Descargar lista</button>
+      </div>
+    </section>
+    <!--Calificaciones section-->
+    <section id="calificaciones" class="seccion" hidden>
+      <div class="container-fluid">
+        <h2 class="mb-4">Consulta de Calificaciones</h2>
+        <div class="mb-3">
+          <label for="grupoSelect" class="form-label">Selecciona tu grupo:</label>
+          <select id="grupoSelect" class="form-select">
+            <option value="">-- Selecciona grupo --</option>
+            <option value="Grupo 1">Grupo 1</option>
+            <option value="Grupo 2">Grupo 2</option>
+          </select>
+        </div>
+      
+        <div class="mb-3">
+          <label for="materiaSelect" class="form-label">Selecciona la materia:</label>
+          <select id="materiaSelect" class="form-select">
+            <option value="">-- Selecciona materia --</option>
+            <option value="Matemáticas">Matemáticas</option>
+            <option value="Español">Español</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-guinda mb-4" onclick="mostrarCalificaciones()">Ver Calificaciones</button>
+    </section>
+    <!--Usuarios section-->
+    <section id="usuarios" class="seccion" hidden>
+      <div class="container-fluid text-center">
+        <h1 class="mt-3 mb-4">Gestion de Usuarios</h1>
+        <div class="mb-3 d-flex gap-2">
+          <input type="text" id="nombreUsuario" class="form-control" placeholder="Nombre">
+          <input type="text" id="ApellidoUsuario" class="form-control" placeholder="Apellidos">
+          <input type="text" id="correoUsuario" class="form-control" placeholder="Correo Electronico">
+          <input type="text" id="contraseñaUsuario" class="form-control" placeholder="Contraseña">
+          <input type="text" id="contraseñaConfirmUsuario" class="form-control" placeholder="Confirmar contraseña">
+          <select id="rolUsuario" class="form-select text-center w-25">
+            <option value="" disabled selected>Rol</option>
+            <option value="1">1 Administrador</option>
+            <option value="2">2 Maestro</option>
+            <option value="3">3 Alumno</option>
+          </select>
+          <button class="btn btn-guinda" onclick="">Agregar Alumno</button>
+        </div>
+        <div class="table-responsive table-hover" id="tabla-materias">
+          <table class="table">
+            <thead class="text-muted">
+              <th class="text-center">Nombre</th>
+              <th class="text-center">Apellidos</th>
+              <th class="text-center">Correo Electronico</th>
+              <th class="text-center">Rol</th>
+              <th class="text-center">Eliminar</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">####</td>
+                <td class="text-center">####</td>
+                <td class="text-center">####</td>
+                <td class="text-center">####</td>
+                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-guinda" onclick="">Descargar lista</button>
         </div>
       </div>
     </section>
   </div>
+
   <script src="../js/script.js"></script>
   <script src="../js/js/bootstrap.bundle.js"></script>
 </body>
