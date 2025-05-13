@@ -1,0 +1,122 @@
+  :root {
+  --bs-primary-rgb: 58, 12, 12; /* color #3a0c0c */
+  --bs-secondary-rgb: 255, 250, 250; /* color #FFFAFA */
+  }
+
+  {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Header */
+  .header {
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    border-bottom: 1px solid #3A0C0C;
+  }
+  
+  .menu-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color:#FFFAFA;
+    border-radius: 80%;
+  }
+  
+  .user-avatar {
+    font-size: 1.2rem;
+  }
+
+  #icon-header{
+    height: 50px;
+    width: 50px;
+  }
+
+  .user-avatar{
+    width: 36px;
+    height: 36px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    color: #fff;
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+  .icon{
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  
+  .sidebar h2 {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar ul li {
+    margin: 20px 0;
+  }
+  
+  .sidebar ul li a {
+    color: #FFFAFA;
+    text-decoration: none;
+  }
+  
+  #logout-button {
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    left: 15px;
+}
+  
+  /*Menu toggle*/
+  #menu-toggle {
+    display:none;
+  }
+  
+  /*Main content*/
+  .main-content {
+    margin-left: 220px;
+    margin-top: 60px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    background-color: #FFFAFA;
+  }
+
+  .btn-guinda {
+    background-color: #800020;
+    color: #fff;
+  }
+  
+  .btn-guinda:hover {
+    background-color: #600018;
+    color: #fff;
+  }
+
+  #calificaciones {
+    font-weight:600;
+  }
+  
+    .sidebar {
+      transform: translateX(-100%);
+    }
+  
+    #menu-toggle:checked ~ .sidebar {
+      transform: translateX(0);
+    }
+  
+    #menu-toggle:checked ~ .main-content {
+      margin-left: 220px;
+    }
+  
+    .main-content {
+      margin-left: 0;
+    }
