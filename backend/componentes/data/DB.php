@@ -63,7 +63,6 @@ class DB
     	{
     		echo 'Error al tratar de consultar la base de datos: ' . $e->getMessage() . 'Query que se intento ejecutar: ' . $ITable->Query;
     	}
-    	
     }
     
     public function Update(Model $ITable, int $id)

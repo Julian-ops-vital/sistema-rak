@@ -10,9 +10,7 @@ use Exception;
 use Controllers\dtos\Alumnos\AlumnoDtoUpdate;
 
 class AlumnosController
-{
-	public $NumRows;
-	
+{	
 	public function getAlumno($id): AlumnoDto
     {
         $Model = new AlumnoModel();
