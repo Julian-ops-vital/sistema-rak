@@ -1,3 +1,12 @@
+<?php
+session_start();
+// Si no hay usuario en sesión, redirige al login
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: /rak/sistema-rak/frontend/pages/login.html");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,7 +43,7 @@
     </ul>
     <!-- Botón de logout al fondo -->
     <div class="mb-3 p-3" id="logout-button">
-    <a href="#" class="btn btn-danger w-100 d-flex align-items-center justify-content-between">
+    <a href="../../backend/api/logout.php" class="btn btn-danger w-100 d-flex align-items-center justify-content-between">
       <img src="assets/logout.svg" alt="Equis" class="icon">Cerrar sesión
     </a>
     </div>
@@ -45,7 +54,7 @@
     <!--Bienvenida section-->
     <section id="bienvenida" class="seccion">
       <div class="container-fluid">
-        <h1 class="mt-3">Bienvenido Administrador</h1>
+        <h1>Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario_name'], ENT_QUOTES, 'UTF-8'); ?>!</h1>
         <p class="text-muted">Panel de control central del sistema RAK.</p>
 
         <div class="row mt-4 justify-content-center">
@@ -230,7 +239,10 @@
             <option value="2">2 Maestro</option>
             <option value="3">3 Alumno</option>
           </select>
-          <button class="btn btn-guinda" onclick="">Agregar Alumno</button>
+          <button class="btn btn-guinda" onclick="agregarUsuario()">Agregar Usuario</button>
+        </div>
+        <div class="container-fluid refresh-btn text-end">
+          <button class="btn btn-guinda" onclick="cargarUsuarios()"><img class="icon" src="assets/refresh.svg" alt="Eliminar"></button>
         </div>
         <div class="table-responsive table-hover" id="tabla-materias">
           <table class="table">
@@ -241,23 +253,17 @@
               <th class="text-center">Rol</th>
               <th class="text-center">Eliminar</th>
             </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></td>
-              </tr>
+            <tbody id="usuariosBody">
             </tbody>
           </table>
-          <button class="btn btn-guinda" onclick="">Descargar lista</button>
+          <button class="btn btn-guinda" onclick="descargarUsuarios()">Descargar lista</button>
         </div>
       </div>
     </section>
   </div>
 
   <script src="../js/script.js"></script>
+  <script src="../js/tables.js"></script>
   <script src="../js/js/bootstrap.bundle.js"></script>
 </body>
 </html>
