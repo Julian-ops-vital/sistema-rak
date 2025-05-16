@@ -1,6 +1,6 @@
 <?php
 // Eliminar un usuario por ID
-require_once '../conexion/conexion.php';
+require_once '../../conexion/conexion.php';
 header('Content-Type: application/json');
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

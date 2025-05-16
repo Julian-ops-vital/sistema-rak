@@ -15,6 +15,8 @@ if (!isset($_SESSION['usuario_id'])) {
   <title>Menu RAK</title>
   <link rel="stylesheet" href="../css/css/bootstrap.css">
   <link rel="stylesheet" href="../css/dashboard.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 
