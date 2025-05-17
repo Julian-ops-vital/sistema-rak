@@ -30,7 +30,7 @@ CREATE TABLE `actividad` (
   `ponderacion_act` float NOT NULL,
   PRIMARY KEY (`id_act`),
   UNIQUE KEY `id_act_UNIQUE` (`id_act`),
-  UNIQUE KEY `numero_mat_UNIQUE` (`numero_mat`),
+  KEY        `idx_numero_mat` (`numero_mat`),
   CONSTRAINT `FK_materia` FOREIGN KEY (`numero_mat`) REFERENCES `materia` (`numero_mat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

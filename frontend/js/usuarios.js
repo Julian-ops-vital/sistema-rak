@@ -64,6 +64,7 @@ let isSubmitting = false;
         const password = document.getElementById('contraseñaUsuario').value;
         const confirm  = document.getElementById('contraseñaConfirmUsuario').value;
         const rol      = document.getElementById('rolUsuario').value;
+        const payload  = {nombre, apellido, correo, password, rol}
 
         // Validaciones tempranas
         if (!nombre || !apellido || !correo || !password || !confirm || !rol) {
@@ -74,9 +75,18 @@ let isSubmitting = false;
             alert('Las contraseñas no coinciden.');
             return;
         }
+        // Si es alumno, agrega el grupo
+        if (rol === '3') {
+            const grupo = document.getElementById('grupoUsuario').value.trim();
+            if (!grupo) {
+                alert('Para alumnos debes indicar un grupo.');
+                return;
+            }
+            payload.grupo = grupo;
+            document.getElementById('grupoUsuario').style.display = 'none';
+        }
         isSubmitting = true;                   //  ◀ marcar envío en curso
         try {
-            const payload = { nombre, apellido, correo, password, rol };
             const res = await fetch('/rak/sistema-rak/backend/api/usuarios/registrar_usuario.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -91,6 +101,7 @@ let isSubmitting = false;
                 document.getElementById('contraseñaUsuario').value = '';
                 document.getElementById('contraseñaConfirmUsuario').value = '';
                 document.getElementById('rolUsuario').selectedIndex = 0;
+                document.getElementById('grupoUsuario').value = '';
                 // Refrescar tabla UNA VEZ
                 await cargarUsuarios();
             } else {
@@ -141,3 +152,13 @@ let isSubmitting = false;
       // 5) Descargar
         doc.save('usuarios.pdf');
     }
+
+    // Cuando cambie el rol, mostramos o escondemos el campo de grupo
+document.getElementById('rolUsuario').addEventListener('change', function() {
+  const grupoInput = document.getElementById('grupoUsuario');
+  if (this.value === '3') {
+    grupoInput.style.display = 'block';
+  } else {
+    grupoInput.style.display = 'none';
+  }
+});

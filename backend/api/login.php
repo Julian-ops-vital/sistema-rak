@@ -20,12 +20,13 @@ $result = $stmt->get_result();
 if ($result->num_rows === 1){
     $usuario = $result->fetch_assoc();
 
-    //Verifica la contraseña hasheada
+    //Verifica la contraseña
     if($password == $usuario['contraseña_us']){
         //Guarda los datos en sesion
         $_SESSION['usuario_id'] = $usuario['id_us'];
         $_SESSION['usuario_email'] = $usuario['email_us'];
         $_SESSION['usuario_name'] = $usuario['nombre_us'];
+        $_SESSION['usuario_rol'] = $usuario['numero_rol'];
         header("Location: /rak/sistema-rak/frontend/pages/home.php");
         exit();
     } else {

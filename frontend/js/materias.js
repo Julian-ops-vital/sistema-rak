@@ -42,6 +42,12 @@ let isSubmittingMateria = false;
                 document.getElementById('nombreMateria').value = '';
                 // Refresca tabla UNA VEZ
                 await cargarMaterias();
+                // refresca el select de Actividades
+                if (typeof window.cargarMateriasSelect === 'function') {
+                await window.cargarMateriasSelect();
+                } else {
+                console.warn('cargarMateriasSelect() no está definida en window');
+                }
             } else {
                 alert('Error: ' + (json.error || 'desconocido'));
             }

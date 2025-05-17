@@ -4,7 +4,7 @@
  */
 async function cargarMateriasSelect() {
   try {
-    const select = document.getElementById('materiaActividad');
+    const select = document.getElementById('idEstudianteTarea');
     // 1) Guarda el valor que estaba antes (puede ser "" si no ha elegido nada)
     const previo = select.value;
 
