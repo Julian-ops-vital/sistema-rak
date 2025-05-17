@@ -13,8 +13,8 @@ if (!isset($_SESSION['usuario_id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Menu RAK</title>
-  <link rel="stylesheet" href="../css/css/bootstrap.css">
-  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="/rak/sistema-rak/frontend/css/css/bootstrap.css">
+  <link rel="stylesheet" href="/rak/sistema-rak/frontend/css/dashboard.css">
 </head>
 <body>
   <input type="checkbox" id="menu-toggle" checked>
@@ -35,7 +35,6 @@ if (!isset($_SESSION['usuario_id'])) {
     <h2 class="text-white">Secundaria Tecnica #93</h2>
     <ul class="list-unstyled">
       <li><a href="#" class="nav-link" data-section="materias"><img class="icon" src="assets/libros.svg" alt="Libro"> Materias</a></li>
-      <li><a href="#" class="nav-link" data-section="alumnos"><img class="icon" src="assets/alumno.svg" alt="Persona"> Alumnos</a></li>
       <li><a href="#" class="nav-link" data-section="actividades"><img class="icon" src="assets/actividades.svg" alt="Documento"> Actividades</a></li>
       <li><a href="#" class="nav-link" data-section="calificaciones"><img class="icon" src="assets/Calificaciones.svg" alt="calificaciones"> Calificaciones</a></li>
       <li><a href="#" class="nav-link" data-section="usuarios"><img class="icon" src="assets/usuarios.svg" alt="usuarios"> Usuarios</a></li>
@@ -128,68 +127,34 @@ if (!isset($_SESSION['usuario_id'])) {
         </div>
       </div>    -->
     </section>
-    <!--Alumnos section-->
-    <section id="alumnos" class="seccion" hidden>
-      <div class="container-fluid text-center">
-        <h1 class="mt-3 mb-4">Gestion de Alumnos</h1>
-        <div class="mb-3 d-flex gap-2">
-          <input type="text" id="nombreAlumno" class="form-control" placeholder="Nombre de Alumno">
-          <select id="gradoAlumno" class="form-select text-center">
-            <option value="" disabled selected>Selecciona grado</option>
-            <option value="1">1°</option>
-            <option value="2">2°</option>
-            <option value="3">3°</option>
-          </select>
-          <input type="text" id="grupoAlumno" class="form-control" placeholder="Grupo">
-          <button class="btn btn-guinda" onclick="">Agregar Alumno</button>
-        </div>
-        <div class="table-responsive table-hover" id="tabla-materias">
-          <table class="table">
-            <thead class="text-muted">
-              <th class="text-center">Nombre</th>
-              <th class="text-center">Grado</th>
-              <th class="text-center">Grupo</th>
-              <th class="text-center">Eliminar</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-guinda" onclick="">Descargar lista</button>
-        </div>
-      </div>
-    </section>
     <!--Actividades section-->
     <section id="actividades" class="seccion" hidden>
       <div class="container-fluid text-center">
         <h1 class="mt-3 mb-3">Gestion de Actividades</h1>
-        <div class="d-flex justify-content-between mb-4">
-          <button class="btn btn-guinda" onclick="">Agregar Actividad</button>
+        <div class="mb-3 d-flex gap-2">
+          <select id="materiaActividad" class="form-select text-center">
+            <option value="" disabled selected>Materia</option>
+            <!--Funcion para desplegar todas las materias disponibles -->
+          </select>
+          <input type="text" id="rubricaActividad" class="form-control" placeholder="Rubrica">
+          <input type="text" id="objetivoActividad" class="form-control" placeholder="Objetivo">
+          <!--Ponderación sera un desplegable en el cual podras escoger algunas opciones-->
+          <input type="text" id="ponderacionActividad" class="form-control" placeholder="Ponderacion">
+          <button class="btn btn-guinda" onclick="">Agregar Usuario</button>
+        </div>
+        <div class="container-fluid refresh-btn text-end">
+            <button class="btn btn-guinda" onclick="cargarActividades()"><img class="icon" src="assets/refresh.svg" alt="Eliminar"></button>
         </div>
         <div class="table-responsive table-hover" id="tabla-materias">
           <table class="table">
             <thead class="text-muted">
-              <th class="text-center">Numero de actividad</th>
               <th class="text-center">Materia</th>
               <th class="text-center">Rubrica</th>
               <th class="text-center">Objetivo</th>
               <th class="text-center">Ponderación</th>
               <th class="text-center">Eliminar</th>
             </thead>
-            <tbody>
-              <tr>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center">####</td>
-                <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
-              </tr>
+            <tbody id="actividadesBody">
             </tbody>
           </table>
           <button class="btn btn-guinda" onclick="">Descargar lista</button>
@@ -237,11 +202,14 @@ if (!isset($_SESSION['usuario_id'])) {
           </select>
           <button class="btn btn-guinda" onclick="agregarUsuario()">Agregar Usuario</button>
         </div>
-        <div class="container-fluid refresh-btn text-end">
-          <button class="btn btn-guinda" onclick="cargarUsuarios()"><img class="icon" src="assets/refresh.svg" alt="Eliminar"></button>
+        <div class="container-fluid refresh-btn text-start">
+          <button class="btn btn-guinda" onclick="cargarUsuarios()">Todos</button>
+          <button class="btn btn-guinda" onclick="cargarAlumnos()">Listar Alumnos</button>
+          <button class="btn btn-guinda" onclick="cargarMaestros()">Listar Maestros</button>
+          <button class="btn btn-guinda" onclick="cargarAdministradores()">Listar Administradores</button>
         </div>
-        <div class="table-responsive table-hover" id="tabla-materias">
-          <table class="table">
+        <div class="table-responsive table-hover">
+          <table class="table" id="usuariosTable">
             <thead class="text-muted">
               <th class="text-center">Nombre</th>
               <th class="text-center">Apellidos</th>
@@ -261,6 +229,7 @@ if (!isset($_SESSION['usuario_id'])) {
   <script src="../js/main.js"></script>
   <script src="../js/usuarios.js"></script>
   <script src="../js/materias.js"></script>
+  <script src="../js/actividades.js"></script>
   <script src="../js/js/bootstrap.bundle.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>

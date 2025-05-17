@@ -1,3 +1,8 @@
+/**
+ * Carga usuarios de cualquier endpoint y pinta la tabla.
+ * @param {string} endpoint — nombre del archivo PHP en /api/usuarios/
+ */
+
 // 0) Funcion pasar de número a texto
 function getRoleName(rol) {
   switch (rol) {
@@ -9,24 +14,44 @@ function getRoleName(rol) {
 }
 
 // 1) Pide el JSON y dibuja filas en #usuariosBody
-    async function cargarUsuarios() {
-    const res = await fetch('/rak/sistema-rak/backend/api/usuarios/get_usuarios.php');
-    const usuarios = await res.json();
-    const tbody = document.getElementById('usuariosBody');
-    tbody.innerHTML = usuarios.map(u => `
-        <tr>
-        <td class="text-center">${u.nombre}</td>
-        <td class="text-center">${u.apellido}</td>
-        <td class="text-center">${u.correo}</td>
-        <td class="text-center">${getRoleName(u.rol)}</td>
-        <td class="text-center">
-            <button class="btn btn-guinda" onclick="eliminarUsuario(${u.id})">
-            <img class="icon" src="assets/Basura.svg" alt="Eliminar">
-            </button>
-        </td>
-        </tr>
-    `).join('');
+    async function cargarUsuariosDesde(endpoint) {
+    try{
+        const res = await fetch(`/rak/sistema-rak/backend/api/usuarios/${endpoint}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const usuarios = await res.json();
+        const tbody = document.getElementById('usuariosBody');
+        tbody.innerHTML = usuarios.map(u => `
+            <tr>
+            <td class="text-center">${u.nombre}</td>
+            <td class="text-center">${u.apellido}</td>
+            <td class="text-center">${u.correo}</td>
+            <td class="text-center">${getRoleName(u.rol)}</td>
+            <td class="text-center">
+                <button class="btn btn-guinda" onclick="eliminarUsuario(${u.id})">
+                <img class="icon" src="assets/Basura.svg" alt="Eliminar">
+                </button>
+            </td>
+            </tr>
+        `).join('');
+    } catch(err) {
+        console.error(`Error cargando ${endpoint}:`, err);
     }
+    }
+    
+    // 1.1) Filtros
+        function cargarUsuarios(){
+            cargarUsuariosDesde('get_usuarios.php')
+    }
+        function cargarAlumnos(){
+            cargarUsuariosDesde('get_alumnos.php')
+    }
+        function cargarMaestros(){
+            cargarUsuariosDesde('get_maestros.php')
+    }
+        function cargarAdministradores(){
+            cargarUsuariosDesde('get_administradores.php')
+    }
+
 
 let isSubmitting = false;
     // 2) Agrega usuario con validacion de campos y contraseña
@@ -87,38 +112,32 @@ let isSubmitting = false;
     }
 
 // 4) Descargar lista en PDF
-async function descargarUsuarios() {
-  // 1) Recuperar datos
-  const res = await fetch('/rak/sistema-rak/backend/api/usuarios/get_usuarios.php');
-  const usuarios = await res.json();
+    async function descargarUsuarios() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-  // 2) Preparar filas para la tabla
-  const head = [['Nombre','Apellido','Correo','Rol']];
-  const body = usuarios.map(u => [
-    u.nombre,
-    u.apellido,
-    u.correo,
-    getRoleName(u.rol)
-  ]);
+      // 1) Clonar la tabla
+        const original = document.getElementById('usuariosTable');
+        const clone = original.cloneNode(true);
 
-  // 3) Crear el PDF
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF(); 
+      // 2) En cada fila del <thead> y <tbody> quita la última <th> o <td>
+        clone.querySelectorAll('thead tr, tbody tr').forEach(tr => {
+            const last = tr.lastElementChild;
+            if (last) tr.removeChild(last);
+        });
 
-  // 4) Añadir un título (opcional)
-  doc.setFontSize(18);
-  doc.text('Listado de Usuarios', 14, 22);
+      // 3) Título
+        doc.setFontSize(16);
+        doc.text('Listado de Usuarios', 14, 20);
 
-  // 5) Dibujar la tabla
-  doc.autoTable({
-    head: head,
-    body: body,
-    startY: 30,          // posición vertical donde empieza la tabla
-    styles: { fontSize: 10, cellPadding: 3 },
-    headStyles: { fillColor: [40, 40, 40] }
-  });
+      // 4) autoTable con el clon (sin la columna “Eliminar”)
+        doc.autoTable({
+        html: clone,
+        startY: 30,
+        styles: { fontSize: 10, cellPadding: 3 },
+        headStyles: { fillColor: [40, 40, 40] }
+        });
 
-  // 6) Guardar/descargar el PDF
-  doc.save('Lista_usuarios.pdf');
-}
-
+      // 5) Descargar
+        doc.save('usuarios.pdf');
+    }
