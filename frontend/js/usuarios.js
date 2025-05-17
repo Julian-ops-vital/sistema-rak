@@ -119,8 +119,6 @@ async function descargarUsuarios() {
   });
 
   // 6) Guardar/descargar el PDF
-  doc.save('usuarios.pdf');
+  doc.save('Lista_usuarios.pdf');
 }
 
-    // 5) Al cargar la página, pinta la tabla
-    document.addEventListener('DOMContentLoaded', cargarUsuarios);

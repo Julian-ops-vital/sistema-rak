@@ -15,11 +15,8 @@ if (!isset($_SESSION['usuario_id'])) {
   <title>Menu RAK</title>
   <link rel="stylesheet" href="../css/css/bootstrap.css">
   <link rel="stylesheet" href="../css/dashboard.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-
   <input type="checkbox" id="menu-toggle" checked>
   
   <!-- Header -->
@@ -82,7 +79,10 @@ if (!isset($_SESSION['usuario_id'])) {
           <h1 class="mt-3 mb-4">Gestión de Materias</h1>
           <div class="mb-3 d-flex gap-2">
             <input type="text" id="nombreMateria" class="form-control" placeholder="Nombre de la materia">
-            <button class="btn btn-guinda" onclick="">Agregar Materia</button>
+            <button class="btn btn-guinda" onclick="agregarMateria()">Agregar Materia</button>
+          </div>
+          <div class="container-fluid refresh-btn text-end">
+            <button class="btn btn-guinda" onclick="cargarMaterias()"><img class="icon" src="assets/refresh.svg" alt="Eliminar"></button>
           </div>
           <div class="table-responsive table-hover" id="tabla-materias">
             <table class="table">
@@ -90,15 +90,10 @@ if (!isset($_SESSION['usuario_id'])) {
                 <th class="text-center">Nombre</th>
                 <th class="text-center ">Eliminar</th>
               </thead>
-              <tbody>
-                <!--Funcion para agregar las materias con el api GET materia-->
-                <tr>
-                  <td>####</td>
-                  <td class="text-center"><button class="btn btn-guinda" onclick=""><img class="icon" src="assets/Basura.svg" alt="Eliminar"></button></div></td>
-                </tr>
+              <tbody id=materiasBody>
               </tbody>
             </table>
-            <button class="btn btn-guinda" onclick="">Descargar lista</button>
+            <button class="btn btn-guinda" onclick="descargarMaterias()">Descargar lista</button>
           </div>
         </div>
         <!--Gestion de alumnos y calificaciones
@@ -131,8 +126,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <button class="btn btn-guinda" onclick="subirMaterial()">Subir Material</button>
           <button class="btn btn-secondary ms-2" onclick="volverAGrupos()">Volver a Grupos</button>
         </div>
-      </div>
-    -->
+      </div>    -->
     </section>
     <!--Alumnos section-->
     <section id="alumnos" class="seccion" hidden>
@@ -264,8 +258,11 @@ if (!isset($_SESSION['usuario_id'])) {
     </section>
   </div>
 
-  <script src="../js/script.js"></script>
-  <script src="../js/tables.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/usuarios.js"></script>
+  <script src="../js/materias.js"></script>
   <script src="../js/js/bootstrap.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
 </body>
 </html>
