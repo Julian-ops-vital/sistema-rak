@@ -61,6 +61,9 @@ CREATE TABLE `administrador` (
   UNIQUE KEY `id_us_UNIQUE` (`id_us`),
   CONSTRAINT `FK_usuario` FOREIGN KEY (`id_us`) REFERENCES `usuario` (`id_us`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO administrador (id_us, nombre_admin) VALUES
+(1, 'Admin');
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,6 +93,9 @@ CREATE TABLE `estudiante` (
   UNIQUE KEY `id_us_UNIQUE` (`id_us`),
   CONSTRAINT `FK_usuario_estudiante` FOREIGN KEY (`id_us`) REFERENCES `usuario` (`id_us`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO estudiante (id_us, nombre_est) VALUES
+(3, 'Alumno');
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,6 +183,9 @@ CREATE TABLE `maestro` (
   UNIQUE KEY `id_us_UNIQUE` (`id_us`),
   CONSTRAINT `FK_usuario_maestro` FOREIGN KEY (`id_us`) REFERENCES `usuario` (`id_us`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO maestro (id_us, nombre_mae) VALUES
+(2, 'Maestro');
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,6 +301,11 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `id_us_UNIQUE` (`id_us`),
   CONSTRAINT `FK_rol` FOREIGN KEY (`numero_rol`) REFERENCES `rol` (`numero_rol`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO usuario (numero_rol, email_us, contraseña_us, nombre_us, apellido_us) VALUES
+(1, 'admin@gmail.com', 'admin', 'Admin', 'Principal'),
+(2, 'maestro@gmail.com', 'maestro', 'Maestro', 'Default'),
+(3, 'alumno@gmail.com', 'alumno', 'Alumno', 'Default');
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
