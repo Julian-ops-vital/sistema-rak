@@ -166,103 +166,85 @@ if (!isset($_SESSION['usuario_id'])) {
           </table>
           <button class="btn btn-guinda" onclick="descargarActividades()">Descargar lista</button>
       </div>
-      <div class="container-fluid text-center mt-5">
-        <h1 class="mt-3 mb-3">Subir Tareas</h1>
-        <div class="mb-3 d-flex gap-2">
-          <select id="grupoEstudianteTarea" class="form-select text-center" onfocus="cargarAlumnosSelect()">
-            <option value="" disabled selected>Grupo</option>
-            <!--Se despliegan todos los grupos disponibles -->
-          </select>
-          <select id="numeroActividadTarea" class="form-select text-center" onfocus="cargarActividadesSelect()">
-            <option value="" disabled selected>Actividad</option>
-            <!--Se despliegan todos las actividades disponibles -->
-          </select>
-          <input type="date" id="FechaFin" class="form-control" placeholder="Fecha limite">
-          <button class="btn btn-guinda" onclick="agregarTarea()">Agregar Actividad</button>
-        </div>
     </section>
-<!-- Calificaciones section -->
-<section id="calificaciones" class="seccion" hidden>
-  <!-- Dentro de <section id="calificaciones" class="seccion" hidden> -->
-<div class="container-fluid text-center mb-4" id="asignarTareasPorGrupo">
-  <h2 class="mt-3 mb-3">Asignar Tareas por Grupo</h2>
-  <div class="d-flex justify-content-center gap-2">
-    <!-- 1) Selector de grupo -->
-    <select id="grupoTareaGrupo" class="form-select w-auto">
-      <option value="" disabled selected>Seleccione Grupo</option>
-      <!-- Opciones cargadas vía JS desde calificaciones/grupos.php -->
-    </select>
-    <!-- 2) Selector de actividad -->
-    <select id="actividadTareaGrupo" class="form-select w-auto">
-      <option value="" disabled selected>Seleccione Actividad</option>
-      <!-- Opciones cargadas vía JS desde actividades/get_actividades.php -->
-    </select>
-    <!-- 3) Fecha límite -->
-    <input type="date" id="fechaLimiteTareaGrupo" class="form-control w-auto" />
-    <!-- 4) Botón de asignar -->
-    <button class="btn btn-guinda" onclick="asignarTareasALGrupo()">
-      Asignar Tareas
-    </button>
-  </div>
-</div>
-
-  <div class="container-fluid text-center">
-    <h1 class="mt-3 mb-4">Gestión de Calificaciones</h1>
-
-    <div class="row mb-3">
-      <!-- 1) Selector de Grupo -->
-      <div class="col-md-4">
-        <select id="grupoCalif" class="form-select">
-          <option value="" disabled selected>Seleccione Grupo</option>
-          <!-- se llenará por JS -->
-        </select>
+    <!-- Calificaciones section -->
+    <section id="calificaciones" class="seccion" hidden>
+      <!-- Dentro de <section id="calificaciones" class="seccion" hidden> -->
+      <div class="container-fluid text-center mb-4" id="asignarTareasPorGrupo">
+        <h2 class="mt-3 mb-3">Asignar Tareas por Grupo</h2>
+        <div class="d-flex justify-content-center gap-2">
+          <!-- 1) Selector de grupo -->
+          <select id="grupoTareaGrupo" class="form-select w-auto">
+            <option value="" disabled selected>Seleccione Grupo</option>
+            <!-- Opciones cargadas vía JS desde calificaciones/grupos.php -->
+          </select>
+          <!-- 2) Selector de actividad -->
+          <select id="actividadTareaGrupo" class="form-select w-auto">
+            <option value="" disabled selected>Seleccione Actividad</option>
+            <!-- Opciones cargadas vía JS desde actividades/get_actividades.php -->
+          </select>
+          <!-- 3) Fecha límite -->
+          <input type="date" id="fechaLimiteTareaGrupo" class="form-control w-auto" />
+          <!-- 4) Botón de asignar -->
+          <button class="btn btn-guinda" onclick="asignarTareasALGrupo()"> Asignar Tareas</button>
+        </div>
       </div>
-      <!-- 2) Selector de Alumno -->
-      <div class="col-md-4">
-        <select id="alumnoCalif" class="form-select" disabled>
-          <option value="" disabled selected>Seleccione Alumno</option>
-        </select>
+
+      <div class="container-fluid text-center">
+        <h1 class="mt-3 mb-4">Gestión de Calificaciones</h1>
+        <div class="row mb-3">
+          <!-- 1) Selector de Grupo -->
+          <div class="col-md-4">
+            <select id="grupoCalif" class="form-select">
+              <option value="" disabled selected>Seleccione Grupo</option>
+              <!-- se llenará por JS -->
+            </select>
+          </div>
+          <!-- 2) Selector de Alumno -->
+          <div class="col-md-4">
+            <select id="alumnoCalif" class="form-select" disabled>
+              <option value="" disabled selected>Seleccione Alumno</option>
+            </select>
+          </div>
+          <!-- Botón para traer tareas -->
+          <div class="col-md-4">
+            <button class="btn btn-guinda" onclick="onAlumnoChange()">Cargar Tareas</button>
+          </div>
+        </div>
+
+        <!-- Tabla de Tareas individuales -->
+        <div class="table-responsive mb-4">
+          <table class="table" id="tareasTable">
+            <thead class="table-muted">
+              <tr>
+                <th class="text-center">Actividad</th>
+                <th class="text-center">Rubrica</th>
+                <th class="text-center">Ponderación</th>
+                <th class="text-center">Calif.</th>
+                <th class="text-center">Guardar</th>
+              </tr>
+            </thead>
+            <tbody id="tareasBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Tabla de Promedio Global -->
+        <div class="table-responsive">
+          <table class="table" id="globalTable">
+            <thead class="table-muted">
+              <tr>
+                <th class="text-center">Alumno</th>
+                <th class="text-center">Promedio Global</th>
+                <th class="text-center">Descargar</th>
+              </tr>
+            </thead>
+            <tbody id="globalBody"></tbody>
+          </table>
+        </div>
+
+        <button class="btn btn-secondary mt-3" onclick="descargarGlobalPDF()">Descargar Boleta Global de Grupo</button>
       </div>
-      <!-- Botón para traer tareas -->
-      <div class="col-md-4">
-        <button class="btn btn-guinda" onclick="onAlumnoChange()">Cargar Tareas</button>
-      </div>
-    </div>
-
-    <!-- Tabla de Tareas individuales -->
-    <div class="table-responsive mb-4">
-      <table class="table" id="tareasTable">
-        <thead class="table-muted">
-          <tr>
-            <th class="text-center">Actividad</th>
-            <th class="text-center">Rubrica</th>
-            <th class="text-center">Ponderación</th>
-            <th class="text-center">Calif.</th>
-            <th class="text-center">Guardar</th>
-          </tr>
-        </thead>
-        <tbody id="tareasBody"></tbody>
-      </table>
-    </div>
-
-    <!-- Tabla de Promedio Global -->
-    <div class="table-responsive">
-      <table class="table" id="globalTable">
-        <thead class="table-muted">
-          <tr>
-            <th class="text-center">Alumno</th>
-            <th class="text-center">Promedio Global</th>
-            <th class="text-center">Descargar</th>
-          </tr>
-        </thead>
-        <tbody id="globalBody"></tbody>
-      </table>
-    </div>
-
-    <button class="btn btn-secondary mt-3" onclick="descargarGlobalPDF()">Descargar Boleta Global de Grupo</button>
-  </div>
-</section>
-
+    </section>
     <!--Usuarios section-->
     <section id="usuarios" class="seccion" hidden>
       <div class="container-fluid text-center">
@@ -309,7 +291,6 @@ if (!isset($_SESSION['usuario_id'])) {
   <script src="../js/main.js"></script>
   <script src="../js/usuarios.js"></script>
   <script src="../js/actividades.js"></script>
-  <!-- <script src="../js/tareas.js"></script> -->
   <script src="../js/materias.js"></script>
   <script src="../js/filtrosMaterias.js"></script>
   <script src="../js/calificaciones.js"></script>
