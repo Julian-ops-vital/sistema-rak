@@ -114,8 +114,8 @@ CREATE TABLE `imparte` (
   `id_mae` int NOT NULL,
   PRIMARY KEY (`numero_imp`),
   UNIQUE KEY `numero_imp_UNIQUE` (`numero_imp`),
-  UNIQUE KEY `numero_mat_UNIQUE` (`numero_mat`),
-  UNIQUE KEY `id_mae_UNIQUE` (`id_mae`),
+  KEY        `numero_mat` (`numero_mat`),
+  KEY        `id_mae` (`id_mae`),
   CONSTRAINT `FK_maestro` FOREIGN KEY (`id_mae`) REFERENCES `maestro` (`id_mae`),
   CONSTRAINT `FK_materia_imp` FOREIGN KEY (`numero_mat`) REFERENCES `materia` (`numero_mat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -144,8 +144,8 @@ CREATE TABLE `inscripción` (
   `calificacion_ins` int NOT NULL,
   PRIMARY KEY (`id_ins`),
   UNIQUE KEY `id_ins_UNIQUE` (`id_ins`),
-  UNIQUE KEY `id_est_UNIQUE` (`id_est`),
-  UNIQUE KEY `numero_mat_UNIQUE` (`numero_mat`),
+  KEY        `id_est` (`id_est`),
+  KEY        `numero_mat` (`numero_mat`),
   CONSTRAINT `FK_estudiante` FOREIGN KEY (`id_est`) REFERENCES `estudiante` (`id_est`),
   CONSTRAINT `FK_materia_ins` FOREIGN KEY (`numero_mat`) REFERENCES `materia` (`numero_mat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -258,8 +258,8 @@ CREATE TABLE `tarea` (
   `fechafin_tar` date NOT NULL,
   PRIMARY KEY (`numero_tar`),
   UNIQUE KEY `numero_tar_UNIQUE` (`numero_tar`),
-  UNIQUE KEY `id_est_UNIQUE` (`id_est`),
-  UNIQUE KEY `numero_act_UNIQUE` (`numero_act`),
+  KEY        `id_est` (`id_est`),
+  KEY        `numero_act` (`numero_act`),
   CONSTRAINT `FK_actividad` FOREIGN KEY (`numero_act`) REFERENCES `actividad` (`id_act`),
   CONSTRAINT `FK_estudiante_tar` FOREIGN KEY (`id_est`) REFERENCES `estudiante` (`id_est`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

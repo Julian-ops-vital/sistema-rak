@@ -41,7 +41,6 @@ if (!isset($_SESSION['usuario_id'])) {
       <li><a href="#" class="nav-link" data-section="materias"><img class="icon" src="assets/libros.svg" alt="Libro"> Materias</a></li>
       <li><a href="#" class="nav-link" data-section="actividades"><img class="icon" src="assets/actividades.svg" alt="Documento"> Actividades</a></li>
       <li><a href="#" class="nav-link" data-section="calificaciones"><img class="icon" src="assets/Calificaciones.svg" alt="calificaciones"> Calificaciones</a></li>
-      <li><a href="#" class="nav-link" data-section="asignaciones"><img class="icon" src="assets/listamateria.svg" alt="Imparte"> Horario</a></li>
       <li><a href="#" class="nav-link" data-section="usuarios"><img class="icon" src="assets/usuarios.svg" alt="usuarios"> Usuarios</a></li>
     </ul>
     <!-- Botón de logout al fondo -->
@@ -86,20 +85,33 @@ if (!isset($_SESSION['usuario_id'])) {
             <input type="text" id="nombreMateria" class="form-control" placeholder="Nombre de la materia">
             <button class="btn btn-guinda" onclick="agregarMateria()">Agregar Materia</button>
           </div>
-          <div class="container-fluid refresh-btn text-start mb-4">
-            <h3>Buscar:</h3>
-            <button class="btn btn-guinda" onclick="cargarMaterias()">Todos</button>
-            <button class="btn btn-guinda" onclick="mostrarFiltroAlumno()">Alumno</button>
-            <button class="btn btn-guinda" onclick="mostrarFiltroMaestro()">Maestro</button>
+          <!-- Seccion de filtro de materias -->
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <!-- 1er filtro: Todas, Alumno, Maestro -->
+            <select id="filterMode" class="form-select w-auto">
+              <option value="all" selected>Todas las materias</option>
+              <option value="alumno">Alumno</option>
+              <option value="maestro">Maestro</option>
+            </select>
+          
+            <!-- 2º filtro: listado de maestros o alumnos -->
+            <select id="userFilter" class="form-select w-auto d-none">
+              <option value="" disabled selected>Seleccione...</option>
+            </select>
+          
+            <!-- 3er botón para aplicar -->
+            <button class="btn btn-guinda" onclick="aplicarFiltroMaterias()">Filtrar</button>
           </div>
-          <div class="mb-3 d-flex gap-2 text-center" id="filtroAlumno">
-            <select id="materiaAlumno" class="form-select text-center" onfocus="cargarAlumnosSelect()" style="display:none;">
-            <option value="" disabled selected>Alumno</option>
-            <!--Funcion para desplegar todas los alumnos disponibles -->
-            </select>
-            <select id="materiaMaestro" class="form-select text-center" onfocus="cargarMaestroSelect()" style="display:none;>
-              <option value="" disabled selected>Maestro</option>
-            </select>
+          <!-- Después de tu bloque de filtros -->
+          <div id="asignacionPanel" class="d-none mb-4">
+            <h5>Asignar materia a <span id="asignTypeLabel"></span></h5>
+            <div class="d-flex gap-2">
+              <select id="materiaAsign" class="form-select w-auto">
+                <option value="" disabled selected>Seleccione materia</option>
+                <!-- aquí cargas todas las materias con get_materias.php -->
+              </select>
+              <button class="btn btn-success" onclick="asignarMateria()">Asignar</button>
+            </div>
           </div>
           <div class="table-responsive table-hover" id="tabla-materias">
             <table class="table">
@@ -128,6 +140,7 @@ if (!isset($_SESSION['usuario_id'])) {
           <!--Ponderación sera un desplegable en el cual podras escoger algunas opciones-->
           <select id="ponderacionActividad" class="form-select text-center" style="width: 40%;">
             <option value="" disabled selected>Ponderacion</option>
+            <option value="5">5%</option>
             <option value="10">10%</option>
             <option value="15">15%</option>
             <option value="20">20%</option>
@@ -168,75 +181,88 @@ if (!isset($_SESSION['usuario_id'])) {
           <button class="btn btn-guinda" onclick="agregarTarea()">Agregar Actividad</button>
         </div>
     </section>
-    <!--Calificaciones section-->
-    <section id="calificaciones" class="seccion" hidden>
-        <div id="alumnoScreen" class="hidden">
-          <h2 class="mb-4">Gestión de Alumnos y Calificaciones</h2>
-          <p><strong>Grupo Seleccionado:</strong> <span id="grupoActual"></span></p>
-      
-          <table class="table table-bordered align-middle">
-            <thead class="table-guinda text-white" style="background-color:#800020;">
-              <tr>
-                <th>Nombre</th>
-                <th>Tarea 1</th>
-                <th>Tarea 2</th>
-                <th>Examen</th>
-                <th>Promedio</th>
-              </tr>
-            </thead>
-            <tbody id="tablaAlumnos">
-            </tbody>
-          </table>
-      
-          <div class="d-flex gap-2 mb-3">
-            <input type="text" id="nombreAlumno" class="form-control" placeholder="Nombre del alumno">
-              <button class="btn btn-guinda" onclick="calcularPromedios()">Guardar Tabla</button>
-          <button class="btn btn-guinda" onclick="calcularPromedios()">Sacar Promedio</button>
-        </div>
-      </div>    
-      <!-- <div class="container-fluid">
-        <h2 class="mb-4">Consulta de Calificaciones</h2>
-        <div class="mb-3">
-          <label for="grupoSelect" class="form-label">Selecciona tu grupo:</label>
-          <select id="grupoSelect" class="form-select">
-            <option value="">-- Selecciona grupo --</option>
-            <option value="Grupo 1">Grupo 1</option>
-            <option value="Grupo 2">Grupo 2</option>
-          </select>
-        </div> 
-      
-        <div class="mb-3">
-          <label for="materiaSelect" class="form-label">Selecciona la materia:</label>
-          <select id="materiaSelect" class="form-select">
-            <option value="">-- Selecciona materia --</option>
-            <option value="Matemáticas">Matemáticas</option>
-            <option value="Español">Español</option>
-          </select>
-        </div>
+<!-- Calificaciones section -->
+<section id="calificaciones" class="seccion" hidden>
+  <!-- Dentro de <section id="calificaciones" class="seccion" hidden> -->
+<div class="container-fluid text-center mb-4" id="asignarTareasPorGrupo">
+  <h2 class="mt-3 mb-3">Asignar Tareas por Grupo</h2>
+  <div class="d-flex justify-content-center gap-2">
+    <!-- 1) Selector de grupo -->
+    <select id="grupoTareaGrupo" class="form-select w-auto">
+      <option value="" disabled selected>Seleccione Grupo</option>
+      <!-- Opciones cargadas vía JS desde calificaciones/grupos.php -->
+    </select>
+    <!-- 2) Selector de actividad -->
+    <select id="actividadTareaGrupo" class="form-select w-auto">
+      <option value="" disabled selected>Seleccione Actividad</option>
+      <!-- Opciones cargadas vía JS desde actividades/get_actividades.php -->
+    </select>
+    <!-- 3) Fecha límite -->
+    <input type="date" id="fechaLimiteTareaGrupo" class="form-control w-auto" />
+    <!-- 4) Botón de asignar -->
+    <button class="btn btn-guinda" onclick="asignarTareasALGrupo()">
+      Asignar Tareas
+    </button>
+  </div>
+</div>
+
+  <div class="container-fluid text-center">
+    <h1 class="mt-3 mb-4">Gestión de Calificaciones</h1>
+
+    <div class="row mb-3">
+      <!-- 1) Selector de Grupo -->
+      <div class="col-md-4">
+        <select id="grupoCalif" class="form-select">
+          <option value="" disabled selected>Seleccione Grupo</option>
+          <!-- se llenará por JS -->
+        </select>
       </div>
-      <button class="btn btn-guinda mb-4" onclick="mostrarCalificaciones()">Ver Calificaciones</button>
-      -->
-    </section>
-    <!-- Imparte Section -->
-    <section id="asignaciones" class="seccion" hidden>
-      <div class="container-fluid text-center">
-        <h1 class="mt-3 mb-4">Materias que lleva</h1>
-        <div class="container-fluid refresh-btn text-start mb-3">
-          <button class="btn btn-guinda" onclick="cargarMaterias()">Todos</button>
-        </div>
-        <div class="table-responsive">
-          <table class="table" id="asignacionTable">
-            <thead>
-              <tr>
-                <th>Materia</th>
-                <th>Eliminar</th>
-              </tr>
-            </thead>
-            <tbody id="asignacionBody"></tbody>
-          </table>
-        </div>
+      <!-- 2) Selector de Alumno -->
+      <div class="col-md-4">
+        <select id="alumnoCalif" class="form-select" disabled>
+          <option value="" disabled selected>Seleccione Alumno</option>
+        </select>
       </div>
-    </section>
+      <!-- Botón para traer tareas -->
+      <div class="col-md-4">
+        <button class="btn btn-guinda" onclick="onAlumnoChange()">Cargar Tareas</button>
+      </div>
+    </div>
+
+    <!-- Tabla de Tareas individuales -->
+    <div class="table-responsive mb-4">
+      <table class="table" id="tareasTable">
+        <thead class="table-muted">
+          <tr>
+            <th class="text-center">Actividad</th>
+            <th class="text-center">Rubrica</th>
+            <th class="text-center">Ponderación</th>
+            <th class="text-center">Calif.</th>
+            <th class="text-center">Guardar</th>
+          </tr>
+        </thead>
+        <tbody id="tareasBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Tabla de Promedio Global -->
+    <div class="table-responsive">
+      <table class="table" id="globalTable">
+        <thead class="table-muted">
+          <tr>
+            <th class="text-center">Alumno</th>
+            <th class="text-center">Promedio Global</th>
+            <th class="text-center">Descargar</th>
+          </tr>
+        </thead>
+        <tbody id="globalBody"></tbody>
+      </table>
+    </div>
+
+    <button class="btn btn-secondary mt-3" onclick="descargarGlobalPDF()">Descargar Boleta Global de Grupo</button>
+  </div>
+</section>
+
     <!--Usuarios section-->
     <section id="usuarios" class="seccion" hidden>
       <div class="container-fluid text-center">
@@ -285,6 +311,8 @@ if (!isset($_SESSION['usuario_id'])) {
   <script src="../js/actividades.js"></script>
   <!-- <script src="../js/tareas.js"></script> -->
   <script src="../js/materias.js"></script>
+  <script src="../js/filtrosMaterias.js"></script>
+  <script src="../js/calificaciones.js"></script>
   <script src="../js/js/bootstrap.bundle.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
