@@ -16,7 +16,7 @@ $sql = "
     m.nombre_mat   AS materia,
     a.rubrica_act  AS rubrica,
     a.ponderacion_act AS ponderacion,
-    t.calificacion_tar AS calificacion
+    t.`calificación_tar` AS calificacion
   FROM tarea t
   JOIN actividad a ON t.numero_act = a.id_act
   JOIN materia m   ON a.numero_mat  = m.numero_mat

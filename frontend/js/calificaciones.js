@@ -111,3 +111,50 @@ async function descargarDetallePDF(id_est){
   doc.autoTable({ html:'#tareasTable', startY:30 });
   doc.save(`Detalle_${alumno.replace(' ','_')}.pdf`);
 }
+
+async function cargarSelectTareaGrupo() {
+  // 1. Cargar grupos
+  const grupos = await fetchJSON('/rak/sistema-rak/backend/api/calificaciones/grupos.php');
+  const grpSel = document.getElementById('grupoTareaGrupo');
+  grpSel.innerHTML = '<option value="" disabled selected>Seleccione Grupo</option>' +
+    grupos.map(g => `<option value="${g}">${g}</option>`).join('');
+  // 2. Cargar actividades
+  const acts = await fetchJSON('/rak/sistema-rak/backend/api/actividades/get_actividades.php');
+  const actSel = document.getElementById('actividadTareaGrupo');
+  actSel.innerHTML = '<option value="" disabled selected>Seleccione Actividad</option>' +
+    acts.map(a => `<option value="${a.id}">${a.materia} – ${a.rubrica}</option>`).join('');
+}
+document.addEventListener('DOMContentLoaded', cargarSelectTareaGrupo);
+
+// 7) Asignar tarea a TODO un grupo
+async function asignarTareasALGrupo() {
+  const grupo     = document.getElementById('grupoTareaGrupo').value;
+  const actividad = document.getElementById('actividadTareaGrupo').value;
+  const fecha     = document.getElementById('fechaLimiteTareaGrupo').value;
+
+  if(!grupo || !actividad || !fecha){
+    return alert('Complete todos los campos.');
+  }
+
+  const payload = {
+    grupo: grupo,
+    actividad: actividad,
+    fecha: fecha       
+  };
+
+  const res = await fetch('/rak/sistema-rak/backend/api/calificaciones/asignar_tareas_grupo.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    return alert('Error: ' + (err.error||res.status));
+  }
+  alert('Tareas asignadas con éxito');
+}
+window.asignarTareasALGrupo = asignarTareasALGrupo;
+
+
+

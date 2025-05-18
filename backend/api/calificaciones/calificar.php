@@ -11,7 +11,7 @@ if (!$id || $cal===null) {
     exit;
 }
 
-$sql = "UPDATE tarea SET calificacion_tar = $cal WHERE numero_tar = $id";
+$sql = "UPDATE tarea SET `calificación_tar` = $cal WHERE numero_tar = $id";
 if ($conexion->query($sql)) {
     echo json_encode(['success'=>true]);
 } else {

@@ -15,7 +15,7 @@ $sql = "
    u.nombre_us  AS nombre,
    u.apellido_us AS apellido,
    ROUND(
-     SUM(t.calificacion_tar * a.ponderacion_act / 100)
+     SUM(t.`calificación_tar` * a.ponderacion_act / 100)
      ,2
    ) AS promedio
  FROM estudiante e
